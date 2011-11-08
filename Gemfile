@@ -35,8 +35,11 @@ group :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "guard-rspec"
+  gem "cucumber-rails"
+  gem "guard-cucumber"
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'spork' #forking and test servers
 end
 
 gem "growl", :group => [:test, :development] if (Config::CONFIG['host_os'].include? "darwin")
