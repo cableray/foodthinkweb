@@ -20,16 +20,13 @@ require 'spec_helper'
 
 describe IngredientsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Ingredient. As you add validations to Ingredient, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
+  def valid_attributes()
+    FactoryGirl.attributes_for :ingredient
   end
 
   describe "GET index" do
     it "assigns all ingredients as @ingredients" do
-      ingredient = Ingredient.create! valid_attributes
+      ingredient = FactoryGirl.create :ingredient
       get :index
       assigns(:ingredients).should eq([ingredient])
     end
@@ -37,7 +34,7 @@ describe IngredientsController do
 
   describe "GET show" do
     it "assigns the requested ingredient as @ingredient" do
-      ingredient = Ingredient.create! valid_attributes
+      ingredient = FactoryGirl.create(:ingredient)
       get :show, :id => ingredient.id
       assigns(:ingredient).should eq(ingredient)
     end
@@ -52,7 +49,7 @@ describe IngredientsController do
 
   describe "GET edit" do
     it "assigns the requested ingredient as @ingredient" do
-      ingredient = Ingredient.create! valid_attributes
+      ingredient = FactoryGirl.create(:ingredient)
       get :edit, :id => ingredient.id
       assigns(:ingredient).should eq(ingredient)
     end
@@ -62,7 +59,7 @@ describe IngredientsController do
     describe "with valid params" do
       it "creates a new Ingredient" do
         expect {
-          post :create, :ingredient => valid_attributes
+          post :create, :ingredient => FactoryGirl.attributes_for(:ingredient)
         }.to change(Ingredient, :count).by(1)
       end
 
@@ -108,14 +105,16 @@ describe IngredientsController do
       end
 
       it "assigns the requested ingredient as @ingredient" do
-        ingredient = Ingredient.create! valid_attributes
-        put :update, :id => ingredient.id, :ingredient => valid_attributes
+        attrs =  valid_attributes
+        ingredient = Ingredient.create! attrs
+        put :update, :id => ingredient.id, :ingredient => attrs
         assigns(:ingredient).should eq(ingredient)
       end
 
       it "redirects to the ingredient" do
-        ingredient = Ingredient.create! valid_attributes
-        put :update, :id => ingredient.id, :ingredient => valid_attributes
+        attrs =  valid_attributes
+        ingredient = Ingredient.create! attrs
+        put :update, :id => ingredient.id, :ingredient => attrs
         response.should redirect_to(ingredient)
       end
     end
