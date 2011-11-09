@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :ingredient do
-    name "MyString"
-    description "MyText"
+    name {Forgery(:lorem_ipsum).words(3)}
+    description {Forgery(:lorem_ipsum).words(50)}
   end
 end

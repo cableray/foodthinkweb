@@ -37,6 +37,7 @@ gem 'compass' #css framework
 gem "rspec-rails", :group => [:test, :development] # testing framework
 group :test do
   gem "factory_girl_rails"
+  gem "forgery" # generate fake names, emails, and dummy text
   gem "capybara" # programmatically navigate the web for testing
   gem "guard-rspec"
   gem "cucumber-rails"
