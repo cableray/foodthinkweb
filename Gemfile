@@ -14,6 +14,9 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 3.1.4' #compile sass (css with variables and functions, etc)
+  gem 'coffee-rails', '~> 3.1.1' #compile coffescript simplified javascript
+  gem 'uglifier', '>= 1.0.3' #compress javascript and css
 end
 
 gem 'jquery-rails'
@@ -31,15 +34,20 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem "rspec-rails", :group => [:test, :development]
+gem "rspec-rails", :group => [:test, :development] # testing framework
 group :test do
   gem "factory_girl_rails"
   gem "capybara"
+  gem "capybara" # programmatically navigate the web for testing
   gem "guard-rspec"
   gem "cucumber-rails"
   gem "guard-cucumber"
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'turn', :require => false # Pretty printed test output
   gem 'spork' #forking and test servers
 end
 
 gem "growl", :group => [:test, :development] if (Config::CONFIG['host_os'].include? "darwin")
+# growl notification gem for mac
+gem "growl", :group => [:test, :development] if (RbConfig::CONFIG['host_os'].include? "darwin")
