@@ -1,0 +1,10 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), ingredients_path
+  = link_to t('edit'), edit_ingredient_path(@ingredient)
+
+%dl
+  %dt= Ingredient.human_attribute_name :name
+  %dd= @ingredient.name
+  %dt= Ingredient.human_attribute_name :description
+  %dd= @ingredient.description
