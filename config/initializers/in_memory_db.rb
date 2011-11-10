@@ -8,7 +8,7 @@ def in_memory_database?
     Rails.configuration.database_configuration['test']['database'] == ':memory:'
 end
       
-if in_memory_database?
+if in_memory_database? and !(defined?(Spork) and Spork.using_spork?)
   warn "creating sqlite in memory database"
   $stdout=$stderr
   load "#{Rails.root}/db/schema.rb"

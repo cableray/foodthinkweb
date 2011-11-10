@@ -85,6 +85,9 @@ GEM
       guard (>= 0.8.3)
     guard-rspec (0.5.2)
       guard (>= 0.8.4)
+    guard-spork (0.3.1)
+      guard (>= 0.8.4)
+      spork (>= 0.8.4)
     haml (3.1.2)
     hike (1.2.1)
     hooks (0.1.4)
@@ -222,6 +225,7 @@ DEPENDENCIES
   growl
   guard-cucumber
   guard-rspec
+  guard-spork
   haml
   jquery-rails
   rails (= 3.1.1)

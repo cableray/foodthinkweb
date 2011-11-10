@@ -44,6 +44,7 @@ group :test do
   gem "guard-cucumber"
   gem 'turn', :require => false # Pretty printed test output
   gem 'spork' #forking and test servers
+  gem 'guard-spork'
 end
 
 # growl notification gem for mac
