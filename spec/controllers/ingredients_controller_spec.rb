@@ -100,8 +100,9 @@ describe IngredientsController do
         # specifies that the Ingredient created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Ingredient.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => ingredient.id, :ingredient => {'these' => 'params'}
+        newattrs = valid_attributes
+        Ingredient.any_instance.should_receive(:update_attributes).with({'name' => 'new name'})
+        put :update, :id => ingredient.id, :ingredient => {'name' => 'new name'}
       end
 
       it "assigns the requested ingredient as @ingredient" do
