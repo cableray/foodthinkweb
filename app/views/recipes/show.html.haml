@@ -1,0 +1,16 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), recipes_path
+  = link_to t('edit'), edit_recipe_path(@recipe)
+
+%dl
+  %dt= Recipe.human_attribute_name :name
+  %dd= @recipe.name
+  %dt= Recipe.human_attribute_name :cook_time
+  %dd= @recipe.cook_time
+  %dt= Recipe.human_attribute_name :prep_time
+  %dd= @recipe.prep_time
+  %dt= Recipe.human_attribute_name :description
+  %dd= @recipe.description
+  %dt= Recipe.human_attribute_name :steps
+  %dd= @recipe.steps

@@ -1,0 +1,8 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), tags_path
+  = link_to t('edit'), edit_tag_path(@tag)
+
+%dl
+  %dt= Tag.human_attribute_name :name
+  %dd= @tag.name

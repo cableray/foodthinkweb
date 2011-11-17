@@ -1,4 +1,10 @@
 Ftweb::Application.routes.draw do
+  resources :supplies
+
+  resources :tags
+
+  resources :recipes
+
   resources :ingredients
 
   # The priority is based upon order of creation:

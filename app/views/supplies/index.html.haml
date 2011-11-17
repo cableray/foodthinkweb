@@ -1,0 +1,18 @@
+%h1= t('.title')
+%p= link_to t('.new_supply'), new_supply_path
+
+%table
+  %thead
+    %tr
+      %th= Supply.human_attribute_name :amount
+      %th= Supply.human_attribute_name :unit
+      %th{:colspan => 3}= t 'actions'
+  
+  %tbody
+    - for supply in @supplies
+      %tr{ :class => cycle(:odd, :even) }
+        %td= supply.amount
+        %td= supply.unit
+        %td.action= link_to t('show'), supply
+        %td.action= link_to t('edit'), edit_supply_path(supply)
+        %td.action= link_to t('destroy'), supply, :confirm => t('are_you_sure'), :method => :delete

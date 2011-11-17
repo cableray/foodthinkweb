@@ -1,0 +1,19 @@
+= form_for(@supply) do |f|
+  - if @supply.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@supply.errors.count, 'error')} prohibited this user from being saved:"
+      %ul
+      - @supply.errors.full_messages.each do |msg|
+        %li= msg
+  
+  .field
+    = f.label :amount
+    %br
+    = f.text_field :amount
+  .field
+    = f.label :unit
+    %br
+    = f.text_field :unit
+
+  .actions
+    = f.submit

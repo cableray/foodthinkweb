@@ -1,0 +1,10 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), supplies_path
+  = link_to t('edit'), edit_supply_path(@supply)
+
+%dl
+  %dt= Supply.human_attribute_name :amount
+  %dd= @supply.amount
+  %dt= Supply.human_attribute_name :unit
+  %dd= @supply.unit
