@@ -1,5 +1,4 @@
 Ftweb::Application.routes.draw do
-  resources :supplies
 
   resources :tags
 
