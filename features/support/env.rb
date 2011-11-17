@@ -6,6 +6,7 @@
 
 require 'rubygems'
 require 'spork'
+
  
 Spork.prefork do
   require 'cucumber/rails'
@@ -37,10 +38,24 @@ Spork.each_run do
   #
   ActionController::Base.allow_rescue = false
   
+  def in_memory_database?
+    Rails.env == "test" and 
+      ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLiteAdapter || 
+      ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLite3Adapter and
+      Rails.configuration.database_configuration['test']['database'] == ':memory:'
+  end
+
+  if in_memory_database?
+    warn "creating sqlite in memory database"
+    $stdout=$stderr
+    load "#{Rails.root}/db/schema.rb"
+    $stdout=STDOUT
+  end
+  
   # Remove/comment out the lines below if your app doesn't have a database.
   # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
   begin
-    DatabaseCleaner.strategy = :transaction
+   # DatabaseCleaner.strategy = :transaction
   rescue NameError
     raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
   end

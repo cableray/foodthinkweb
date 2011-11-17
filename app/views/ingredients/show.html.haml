@@ -1,4 +1,4 @@
-%h1= t '.title'
+%h1#title= @ingredient.name
 %p
   = link_to t('back'), ingredients_path
   = link_to t('edit'), edit_ingredient_path(@ingredient)

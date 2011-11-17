@@ -42,7 +42,8 @@ group :test do
   gem "guard-rspec"
   gem "cucumber-rails"
   gem "guard-cucumber"
-  gem 'turn', :require => false # Pretty printed test output
+  gem 'pickle' # some steps for cucumber
+  gem 'turn', '< 0.8.3', :require => false # Pretty printed test output
   gem 'spork' #forking and test servers
   gem 'guard-spork'
 end
