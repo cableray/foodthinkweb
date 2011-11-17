@@ -2,7 +2,7 @@ class SuppliesController < ApplicationController
   # GET /supplies
   # GET /supplies.json
   def index
-    @supplies = Supply.all
+    @supplies = Supply.all_for_recipe(params[:recipe_id])
 
     respond_to do |format|
       format.html # index.html.erb

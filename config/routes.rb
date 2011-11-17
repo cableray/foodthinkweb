@@ -3,7 +3,9 @@ Ftweb::Application.routes.draw do
 
   resources :tags
 
-  resources :recipes
+  resources :recipes do
+    resources :supplies
+  end
 
   resources :ingredients
 
