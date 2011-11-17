@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20111117002759) do
     t.string   "unit"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ingredient_id"
+    t.integer  "recipe_id"
   end
 
   create_table "tags", :force => true do |t|
