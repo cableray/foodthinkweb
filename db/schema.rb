@@ -20,11 +20,6 @@ ActiveRecord::Schema.define(:version => 20111117002759) do
     t.datetime "updated_at"
   end
 
-  create_table "recipe_tags", :id => false, :force => true do |t|
-    t.integer "recipe_id"
-    t.integer "tag_id"
-  end
-
   create_table "recipes", :force => true do |t|
     t.string   "name"
     t.integer  "cook_time"
@@ -33,6 +28,11 @@ ActiveRecord::Schema.define(:version => 20111117002759) do
     t.text     "steps"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "recipes_tags", :id => false, :force => true do |t|
+    t.integer "recipe_id"
+    t.integer "tag_id"
   end
 
   create_table "supplies", :force => true do |t|
