@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = RecipeJsonDecorator.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @recipe = Recipe.find(params[:id])
+    @recipe = RecipeJsonDecorator.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
