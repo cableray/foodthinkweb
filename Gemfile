@@ -8,6 +8,7 @@ gem 'rails', '3.1.1'
 gem 'sqlite3'
 #gem 'roar'
 gem 'draper'
+gem 'sunspot_rails'
 
 
 # Gems used only for assets and not required
