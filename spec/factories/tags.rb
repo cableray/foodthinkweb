@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :tag do
-    name "MyString"
+    name {Forgery(:lorem_ipsum).words rand(2)+1, :random=>true}
   end
 end
