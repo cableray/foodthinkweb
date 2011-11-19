@@ -2,6 +2,9 @@ class Supply < ActiveRecord::Base
   belongs_to :ingredient
   belongs_to :recipe
   
+  validates :unit, :inclusion => { :in => %w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes),
+      :message => "%{value} is not a valid unit" }
+  
   accepts_nested_attributes_for :ingredient
   
   scope :all_for_recipe, lambda {|recipe_id| where(:recipe_id=>recipe_id)}
