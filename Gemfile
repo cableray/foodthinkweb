@@ -7,8 +7,10 @@ gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 #gem 'roar'
-gem 'draper'
-gem 'sunspot_rails'
+gem 'draper' # decorators for models, to seperate formating logic from models, and to allow views to focus on html logic
+gem 'sunspot_rails' # search engine
+gem 'inherited_resources' # Default actions for resourceful controllers https://github.com/josevalim/inherited_resources
+gem 'has_scope' # automatically use a model scope from a url param
 
 
 # Gems used only for assets and not required

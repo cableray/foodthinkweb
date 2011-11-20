@@ -1,10 +1,14 @@
-%h1= t '.title'
+%h1
+  Supplies for
+  =link_to @supply.recipe.name, recipe_path(@supply.recipe)
 %p
-  = link_to t('back'), supplies_path
-  = link_to t('edit'), edit_supply_path(@supply)
+  = link_to t('back'), recipe_supplies_path
+  = link_to t('edit'), edit_recipe_supply_path(@supply.recipe, @supply)
 
 %dl
   %dt= Supply.human_attribute_name :amount
   %dd= @supply.amount
   %dt= Supply.human_attribute_name :unit
   %dd= @supply.unit
+  %dt Name
+  %dd= @supply.name

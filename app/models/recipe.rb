@@ -15,11 +15,36 @@ class Recipe < ActiveRecord::Base
     text :ingredients, :boost=>5 do
       ingredients.map(&:name)
     end
-    text :tags, :boost=>5 do
+    text :tags do
       tags.map(&:name)
     end
   end
   
+  scope :search
+  def self.search(text)
+    s=Recipe.solr_search_ids do
+      keywords text
+    end
+    Recipe.where(:id=>s) #this returns an ActiveRecord::Relation instead of a vanilla array, which is expected by has_scope.
+  end
+  
+  attr_writer :tag_names
+  after_save :assign_tags
+
+  def tag_names
+    @tag_names || tags.map(&:name).join(', ')
+  end
+
+  private
+
+  def assign_tags
+    if @tag_names
+      self.tags = @tag_names.split(/,\s*/).map do |name|
+        Tag.find_or_create_by_name(name)
+      end
+    end
+  end
+
   def total_time
     self.cook_time+self.prep_time
   end

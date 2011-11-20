@@ -9,6 +9,17 @@ class Supply < ActiveRecord::Base
   
   scope :all_for_recipe, lambda {|recipe_id| where(:recipe_id=>recipe_id)}
   
+  attr_writer :name
+  before_save :link_ingr_by_name
+  
+  def name
+    ingredient.name
+  end
+  
+  def link_ingr_by_name
+    self.ingredient= Ingredient.find_or_create_by_name(@name)
+  end
+  
   def as_json(options={})
     {
       :id=>self.ingredient_id,

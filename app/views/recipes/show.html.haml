@@ -7,10 +7,23 @@
   %dt= Recipe.human_attribute_name :name
   %dd= @recipe.name
   %dt= Recipe.human_attribute_name :cook_time
-  %dd= @recipe.cook_time
+  %dd= @recipe.cook_time_dhms
   %dt= Recipe.human_attribute_name :prep_time
-  %dd= @recipe.prep_time
+  %dd= @recipe.prep_time_dhms
+  %dt Tags
+  %dd= @recipe.tag_names
   %dt= Recipe.human_attribute_name :description
   %dd= @recipe.description
   %dt= Recipe.human_attribute_name :steps
   %dd= @recipe.steps
+%table
+  %thead
+    %tr
+      %th(colspan=2) Amount
+      %th Ingredient
+  %tbody
+    - for supply in @recipe.supplies
+      %tr
+        %td= supply.amount
+        %td= supply.unit
+        %td= supply.name

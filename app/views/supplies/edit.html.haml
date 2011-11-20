@@ -1,5 +1,5 @@
 %h1= t '.title'
 %p
-  = link_to t('back'), supplies_path
-  = link_to t('show'), @supply
+  = link_to t('back'), recipe_supplies_path
+  = link_to t('show'), recipe_supply_path(@supply.recipe, @supply)
 = render 'form'

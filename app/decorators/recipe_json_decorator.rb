@@ -11,6 +11,7 @@ class RecipeJsonDecorator < RestJsonDecorator
       :steps=>self.steps,
       :time=>{:cook_time=>self.cook_time, :prep_time=> self.prep_time, :total_time=>self.total_time},
       :ingredients=>self.supplies,
+      :tags=>self.tags,
       :links=>links,
       }
     end

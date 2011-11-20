@@ -1,5 +1,38 @@
 class RecipeDecorator < ApplicationDecorator
   decorates :recipe
+  
+  
+  def seconds_to_dhms(seconds)
+    minutes, seconds = seconds.divmod 60
+    hours, minutes = minutes.divmod 60
+    days, hours = hours.divmod 24
+    [days, hours, minutes, seconds]
+  end
+  
+  def format_dhms(days, hours, minutes, seconds)
+    parts=[]
+    parts.push(h.pluralize days, "day") if days > 0
+    parts.push(h.pluralize hours, "hour") if hours > 0
+    parts.push(h.pluralize minutes, "minute") if minutes > 0
+    parts.push(h.pluralize seconds, "seconds") if seconds > 0
+    parts.join ", "
+  end
+  
+  def format_seconds(seconds)
+    format_dhms *seconds_to_dhms(seconds)
+  end
+  
+  def cook_time_dhms
+    format_seconds model.cook_time
+  end
+  
+  def prep_time_dhms
+    format_seconds model.prep_time
+  end
+  
+  def total_time_dhms
+    format_seconds model.total_time
+  end
 
   # Accessing Helpers
   #   You can access any helper via a proxy
