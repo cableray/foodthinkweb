@@ -9,11 +9,15 @@ class Supply < ActiveRecord::Base
   
   scope :all_for_recipe, lambda {|recipe_id| where(:recipe_id=>recipe_id)}
   
-  attr_writer :name
+
   before_save :link_ingr_by_name
-  
+  def name=(value)
+    attribute_will_change!(:name) #not sure if this line is needed
+    @name=value
+  end
   def name
-    ingredient.name
+    return ingredient.name unless ingredient.nil?
+    return ''
   end
   
   def link_ingr_by_name

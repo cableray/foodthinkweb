@@ -3,7 +3,10 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, :through => :supplies
   has_and_belongs_to_many :tags
   
-  accepts_nested_attributes_for :supplies, :tags
+  accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
+  def reject_supply?(attributed)
+    attributed['name'].blank? and attributed['ingredient_id'].blank?
+  end
   
   validates :name, :presence=>true 
   validates :cook_time, :prep_time, :numericality => { :only_integer => true }

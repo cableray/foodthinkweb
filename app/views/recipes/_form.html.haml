@@ -1,4 +1,4 @@
-= form_for(@recipe) do |f|
+= nested_form_for(@recipe) do |f|
   - if @recipe.errors.any?
     #errorExplanation
       %h2= "#{pluralize(@recipe.errors.count, 'error')} prohibited this user from being saved:"
@@ -30,6 +30,9 @@
     = f.label :steps
     %br
     = f.text_area :steps
-
+  .fields
+    = f.fields_for :supplies
+    = f.link_to_add "Add another ingredient", :supplies
+  
   .actions
     = f.submit

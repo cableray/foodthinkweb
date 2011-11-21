@@ -11,6 +11,7 @@ gem 'draper' # decorators for models, to seperate formating logic from models, a
 gem 'sunspot_rails' # search engine
 gem 'inherited_resources' # Default actions for resourceful controllers https://github.com/josevalim/inherited_resources
 gem 'has_scope' # automatically use a model scope from a url param
+gem "nested_form", :git=>"https://github.com/ryanb/nested_form.git" #features for nested forms
 
 
 # Gems used only for assets and not required
