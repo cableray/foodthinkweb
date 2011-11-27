@@ -2,6 +2,9 @@ class Recipe < ActiveRecord::Base
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
   has_and_belongs_to_many :tags
+  has_and_belongs_to_many :user
+
+  scope :recent, order('created_at desc')
   
   accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
   def reject_supply?(attributed)

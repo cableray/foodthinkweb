@@ -78,4 +78,12 @@ class RecipesController < InheritedResources::Base
   #    format.json { head :ok }
     end
   end
+
+  def home
+    @featured ||= Recipe.recent.limit(2)
+      index! do |format|
+        format.html { @recipes=RecipeDecorator.decorate @recipes }
+        format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
+    end
+  end
 end
