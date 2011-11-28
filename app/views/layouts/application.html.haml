@@ -1,0 +1,15 @@
+!!! 5
+%html 
+  %head 
+    %title FoodThink
+    = stylesheet_link_tag    "application" 
+    = javascript_include_tag "application" 
+    = csrf_meta_tags 
+  %body.two-col 
+    #container
+      #content
+        %h1#headline FoodThink
+        = yield 
+      #workbench
+        = render 'workbench'
+
