@@ -1,5 +1,7 @@
 Ftweb::Application.routes.draw do
 
+  get "sessions/new"
+
   resources :users
 
   resources :tags
@@ -10,6 +12,11 @@ Ftweb::Application.routes.draw do
   end
 
   resources :ingredients
+  
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  resources :sessions
 
   root :to => 'recipes#index'
 

@@ -27,6 +27,8 @@ gem 'jquery-rails'
 gem 'haml' #haml (simplified html for improved readability) template engine, instead of embedded ruby in regular html
 gem 'compass' #css framework
 
+gem 'sorcery' #A bare-bones authentication system.
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -1,7 +1,9 @@
-%dl
-  %dt(class="user section")= current_user.username
-  %dd= current_user.inspect
-  %dt.section recipe clippings
-  %dd= render 'recipe_clippings'
-  %dt.section my pantry
-  %dd lorem
+-unless current_user.nil?
+  %dl
+    %dt(class="user section")= current_user.username
+    %dd= current_user.inspect
+    %dt.section recipe clippings
+    %dd= render 'recipe_clippings'
+    %dt.section my pantry
+    %dd lorem
+

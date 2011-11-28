@@ -1,8 +1,8 @@
 module ApplicationHelper
   #unless defined? :current_user then
-    def current_user
-      User.first
-    end
+    #def current_user
+      #User.first
+    #end
   #end
   
   def user_recipes( user=nil )

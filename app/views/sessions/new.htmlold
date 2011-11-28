@@ -1,0 +1,11 @@
+%h2 Login
+
+-#.form
+-#= form_tag action: Login do
+-#  = text_field_tag :name, params[:name]
+-#  = password_field_tag :password, params[:password]
+-#  = submit_tag 'Login'
+- form_tag session_path do
+  = label_tag 'login', 'Username'
+  %br
+  = text_field_tag 'login', params[:username]
