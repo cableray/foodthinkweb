@@ -1,5 +1,5 @@
 class Recipe < ActiveRecord::Base
-  belongs_to :creator, :class_name => 'User'
+  belongs_to :creator, :class_name => 'User', :inverse_of=>:created_recipes
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
   has_and_belongs_to_many :tags
