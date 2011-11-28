@@ -1,9 +1,9 @@
 class Recipe < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :creator, :class_name => 'User'
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
   has_and_belongs_to_many :tags
-  has_and_belongs_to_many :user
+  has_and_belongs_to_many :clippers, :class_name => "User"
 
   scope :recent, order('created_at desc')
   
