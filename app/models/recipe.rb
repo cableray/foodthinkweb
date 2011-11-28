@@ -6,6 +6,7 @@ class Recipe < ActiveRecord::Base
   has_and_belongs_to_many :clippers, :class_name => "User"
 
   scope :recent, order('created_at desc')
+  scope :by_user, lambda{|user| where(:creator_id=>user.id)}
   
   accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
   def reject_supply?(attributed)

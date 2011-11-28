@@ -1,0 +1,17 @@
+.featured {
+	background-color:rgba(0,0,0,.2);
+	padding:1em;
+	margin:.5em;
+}
+
+#recipe-list {
+	//margin:1em;
+	.listing {
+		margin:0 1em 1em;
+		border-bottom:solid 1px #ccc;
+		
+		h3 {
+			margin-bottom:.3em;
+		}
+	}
+}

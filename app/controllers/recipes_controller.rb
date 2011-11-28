@@ -6,6 +6,7 @@ class RecipesController < InheritedResources::Base
   # GET /recipes
   # GET /recipes.json
   def index
+    @featured ||= RecipeDecorator.decorate Recipe.recent.limit(2) unless params[:search]
     index! do |format|
       format.html { @recipes=RecipeDecorator.decorate @recipes }
       format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
@@ -79,11 +80,6 @@ class RecipesController < InheritedResources::Base
     end
   end
 
-  def home
-    @featured ||= Recipe.recent.limit(2)
-      index! do |format|
-        format.html { @recipes=RecipeDecorator.decorate @recipes }
-        format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
-    end
-  end
+
+
 end

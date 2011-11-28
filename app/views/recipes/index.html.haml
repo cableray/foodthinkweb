@@ -8,5 +8,6 @@
 
 
 %p= link_to t('.new_recipe'), new_recipe_path
-
-= render 'recipe_list'
+#recipes
+  = render 'featured_list' if @featured
+  = render 'recipe_list'

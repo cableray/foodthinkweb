@@ -1,0 +1,4 @@
+#featured-recipe-list
+  %h2 Featured
+  - for recipe in @featured
+    =render :partial=>'featured', :locals=>{:recipe=>recipe}

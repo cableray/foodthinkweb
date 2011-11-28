@@ -11,7 +11,7 @@ Ftweb::Application.routes.draw do
 
   resources :ingredients
 
-  root :to => 'recipes#home'
+  root :to => 'recipes#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

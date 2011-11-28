@@ -1,0 +1,12 @@
+%dl
+  %dt.section My Recipes
+  %dd
+    %ul
+      - for recipe in user_recipes
+        %li= render :partial=>"recipes/line_item", :locals=>{:recipe=>recipe}
+  %dt.section Favorite Recipes
+  %dd
+    %ul
+      - for recipe in user_clippings
+        %li= render :partial=>"recipes/line_item", :locals=>{:recipe=>recipe}
+        

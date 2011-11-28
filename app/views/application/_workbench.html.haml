@@ -1,3 +1,7 @@
-#user You are this user!
-%h2 recipe clippings
-%h2 my pantry
+%dl
+  %dt(class="user section")= current_user.username
+  %dd= current_user.inspect
+  %dt.section recipe clippings
+  %dd= render 'recipe_clippings'
+  %dt.section my pantry
+  %dd lorem

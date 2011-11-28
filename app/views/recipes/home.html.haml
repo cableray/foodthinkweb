@@ -8,9 +8,6 @@
     = submit_tag "Search"
 
 - for recipe in @featured
-  .div{:class => 'featured'}
-    %h2= recipe.name
-    %p= recipe.description
-    //%p= link_to recipe('show'), @recipe
+  =render :partial=>'featured', :locals=>{:recipe=>recipe}
 
 = render 'recipe_list'

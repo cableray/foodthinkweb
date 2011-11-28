@@ -8,8 +8,10 @@
   %body.two-col 
     #container
       #content
-        %h1#headline FoodThink
-        = yield 
+        .inner-div
+          %h1#headline FoodThink
+          = yield 
       #workbench
-        = render 'workbench'
+        .inner-div
+          = render 'workbench'
 
