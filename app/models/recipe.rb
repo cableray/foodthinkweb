@@ -1,4 +1,5 @@
 class Recipe < ActiveRecord::Base
+  belongs_to :users
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
   has_and_belongs_to_many :tags
