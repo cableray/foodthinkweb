@@ -1,15 +1,24 @@
 class RecipesController < InheritedResources::Base
   respond_to :html, :xml, :json
+  optional_belongs_to :user
 
   has_scope :search
   
   # GET /recipes
   # GET /recipes.json
   def index
-    @featured ||= RecipeDecorator.decorate Recipe.recent.limit(2) unless params[:search]
-    index! do |format|
-      format.html { @recipes=RecipeDecorator.decorate @recipes }
-      format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
+    if params[:user_id] then
+      @recipes=User.find(params[:user_id]).created_recipes
+      respond_with do |format|
+        format.html { @recipes=RecipeDecorator.decorate @recipes }
+        format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
+      end
+    else
+      @featured ||= RecipeDecorator.decorate Recipe.recent.limit(2) unless params[:search]
+      index! do |format|
+        format.html { @recipes=RecipeDecorator.decorate @recipes }
+        format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
+      end
     end
   end
 
@@ -79,7 +88,25 @@ class RecipesController < InheritedResources::Base
   #    format.json { head :ok }
     end
   end
-
+  
+  # PUT /recipes/1/clip[.json]
+  def clip
+    @recipe=Recipe.find(params[:id])
+    current_user.clippings << @recipe
+    respond_with do |format|
+      format.html {redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe was successfully added.'}
+      format.json { head :ok }
+    end
+  end
+  
+  # GET /users/1/recipes/clippings[.json]
+  def clippings
+    @recipes = User.find(params[:user_id]).clippings
+    respond_with do |format|
+      format.html { @recipes=RecipeDecorator.decorate @recipes }
+      format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
+    end
+  end
 
 
 end

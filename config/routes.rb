@@ -2,13 +2,20 @@ Ftweb::Application.routes.draw do
 
   get "sessions/new"
 
-  resources :users
+  resources :users do
+    resources :recipes do
+      collection do
+        get "clippings"
+      end
+    end
+  end
 
   resources :tags
 
   resources :recipes do
     resources :supplies
     resources :tags
+    put "clip", :on=>:member
   end
 
   resources :ingredients

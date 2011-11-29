@@ -1,3 +1,3 @@
 class TagsController < InheritedResources::Base
-  belongs_to :recipe
+  optional_belongs_to :recipe
 end
