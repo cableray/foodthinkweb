@@ -1,2 +1,4 @@
 %h3= recipe.name
-.description= recipe.description
+.description
+  :markdown
+    #{h recipe.description}

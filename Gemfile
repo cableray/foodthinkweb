@@ -29,6 +29,8 @@ gem 'compass' #css framework
 
 gem 'sorcery' #A bare-bones authentication system.
 
+gem 'bluecloth' # render markdown as html
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

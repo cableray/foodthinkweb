@@ -33,6 +33,14 @@ class RecipeDecorator < ApplicationDecorator
   def total_time_dhms
     format_seconds model.total_time
   end
+  
+  #def description
+  #  h.mkd model.description
+  #end
+  
+  #def steps
+  #  h.mkd model.steps
+  #end
 
   # Accessing Helpers
   #   You can access any helper via a proxy

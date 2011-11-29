@@ -13,9 +13,13 @@
   %dt Tags
   %dd= @recipe.tag_names
   %dt= Recipe.human_attribute_name :description
-  %dd= @recipe.description
+  %dd
+    :markdown
+      #{h @recipe.description}
   %dt= Recipe.human_attribute_name :steps
-  %dd= @recipe.steps
+  %dd
+    :markdown
+      #{h @recipe.steps}
 %table
   %thead
     %tr

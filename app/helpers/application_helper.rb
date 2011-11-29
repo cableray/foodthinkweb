@@ -1,9 +1,4 @@
 module ApplicationHelper
-  #unless defined? :current_user then
-    #def current_user
-      #User.first
-    #end
-  #end
   
   def user_recipes( user=nil )
     user=current_user if user.nil?
@@ -13,6 +8,10 @@ module ApplicationHelper
   def user_clippings( user=nil )
     user=current_user if user.nil?
     user.clippings
+  end
+  
+  def mkd( text )
+    BlueCloth.new(text).to_html
   end
   
 end

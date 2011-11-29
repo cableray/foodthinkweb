@@ -1,6 +1,8 @@
 %div{ :class => cycle(:odd, :even)+" listing" }
   %h3= link_to recipe.name, recipe
-  .description= recipe.description
+  .description
+    :markdown
+      #{h recipe.description}
   %dl.cook_times
     %dt Cook Time
     %dd= recipe.cook_time_dhms
