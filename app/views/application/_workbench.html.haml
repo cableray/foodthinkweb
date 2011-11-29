@@ -1,9 +1,14 @@
--unless current_user.nil?
-  %dl
-    %dt(class="user section")= current_user.username
-    %dd= current_user.inspect
+%dl
+  -unless current_user.nil?
+    %dt.user.section= current_user.username
+    %dd.user
+      = current_user.email
+      #login_panel= render 'login_panel'
     %dt.section recipe clippings
     %dd= render 'recipe_clippings'
     %dt.section my pantry
     %dd lorem
+  -else
+    %dt.user.guest.section Welcome, Guest!
+    %dd.user.guest= render 'login_panel'
 
