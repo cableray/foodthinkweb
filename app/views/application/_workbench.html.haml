@@ -1,5 +1,5 @@
 %dl
-  -unless current_user.nil?
+  -unless !current_user
     %dt.user.section= current_user.username
     %dd.user
       = current_user.email
