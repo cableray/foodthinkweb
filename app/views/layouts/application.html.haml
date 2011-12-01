@@ -9,7 +9,8 @@
     #container
       #content
         .inner-div
-          %h1#headline FoodThink
+          %h1#headline= link_to 'FoodThink', root_path
+          =render :partial => "flash", :locals => {:flash => flash}
           = yield 
       #workbench
         .inner-div

@@ -52,7 +52,7 @@ body.two-col {
   #header, #footer {
     @include column($blueprint-grid-columns); }
   #sidebar, #workbench {
-		border-left:2px solid black;
+		/*border-left:2px solid black; */
     // One third of the grid columns, rounding down. With 24 cols, this is 8.
     $sidebar-columns: floor($blueprint-liquid-grid-columns / 3);
     @include column($sidebar-columns, true); 
