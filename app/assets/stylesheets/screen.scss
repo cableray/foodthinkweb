@@ -49,6 +49,16 @@ body.two-col {
     @include container;
 		width:100%;
  }
+	.flash {
+		text-align:center;
+		margin:1em;
+		padding:.5em;
+		font-weight:bold;
+	}
+	.tags {
+		background-color:#ddf;
+		display:inline-block;
+	}
   #header, #footer {
     @include column($blueprint-grid-columns); }
   #sidebar, #workbench {

@@ -2,7 +2,6 @@ class Recipe < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :inverse_of=>:created_recipes
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
-  #has_many :units, :through => :supplies
   has_and_belongs_to_many :tags
   has_many :recipe_bookmarks
   has_many :clippers, :through=>:recipe_bookmarks, :source=>:user, :class_name => "User"
@@ -42,6 +41,11 @@ class Recipe < ActiveRecord::Base
     Recipe.where(:id=>s) #this returns an ActiveRecord::Relation instead of a vanilla array, which is expected by has_scope.
   end
   
+  scope :tag
+  def self.tag(name)
+    Recipe.joins(:tags).where("upper(tags.name)=?",name.humanize.upcase)
+  end
+  
   attr_writer :tag_names
   after_save :assign_tags
 
@@ -49,6 +53,15 @@ class Recipe < ActiveRecord::Base
     @tag_names || tags.map(&:name).join(', ')
   end
 
+  def total_time
+    self.cook_time+self.prep_time
+  end
+  
+  def remove_bookmark_for_user (user)
+    clippers.delete user
+  end
+  
+  
   private
 
   def assign_tags
@@ -59,15 +72,4 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def total_time
-    self.cook_time+self.prep_time
-  end
-  
-  def ingredients_box
-    #TODO: show existing ingredients.    
-  end 
-
-  def ingredients_box=(text)
-    #TODO: parse ingredients.
-  end  
 end

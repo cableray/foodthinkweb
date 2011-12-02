@@ -17,8 +17,13 @@ Ftweb::Application.routes.draw do
   resources :recipes do
     resources :supplies
     resources :tags
-    put "clip", :on=>:member
-    get "clip", on: :member #for debug purposes mostly
+    member do
+      put "clip"
+      get "clip" #for debug purposes mostly
+      delete 'clip', action:'unclip'
+      get 'unclip'
+      delete 'unclip'
+    end
   end
 
   resources :ingredients
