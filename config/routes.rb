@@ -16,6 +16,7 @@ Ftweb::Application.routes.draw do
     resources :supplies
     resources :tags
     put "clip", :on=>:member
+    get "clip", on: :member #for debug purposes mostly
   end
 
   resources :ingredients
