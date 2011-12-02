@@ -34,6 +34,10 @@ class RecipeDecorator < ApplicationDecorator
     format_seconds model.total_time
   end
   
+  def clipped?
+    h.current_user and model.clipped_by?(h.current_user)
+  end
+  
   #def description
   #  h.mkd model.description
   #end
