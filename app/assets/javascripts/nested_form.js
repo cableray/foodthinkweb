@@ -48,4 +48,4 @@ jQuery(function($) {
     $(this).closest("form").trigger('nested:fieldRemoved');
     return false;
   });
-});
+}); 

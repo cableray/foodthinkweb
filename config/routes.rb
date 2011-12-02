@@ -1,5 +1,7 @@
 Ftweb::Application.routes.draw do
 
+  resources :units
+
   get "sessions/new"
 
   resources :users do

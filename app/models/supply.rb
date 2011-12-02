@@ -1,6 +1,10 @@
 class Supply < ActiveRecord::Base
+  attr_accessible :name, :amount_tokens
   belongs_to :ingredient
   belongs_to :recipe
+  belongs_to :unit
+
+  attr_reader :amount_tokens
   
   validates :unit, :inclusion => { :in => %w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes),
       :message => "%{value} is not a valid unit" }
@@ -31,6 +35,10 @@ class Supply < ActiveRecord::Base
       :description=>self.ingredient.description,
       :amount=>{:unit=>self.unit, :quantity=>self.amount},
     }
+  end
+
+  def amount_tokens=(ids)
+    self.amounts = ids.split(',')
   end
   
 end

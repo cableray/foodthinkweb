@@ -1,0 +1,16 @@
+%h1= t('.title')
+%p= link_to t('.new_unit'), new_unit_path
+
+%table
+  %thead
+    %tr
+      %th= Unit.human_attribute_name :name
+      %th{:colspan => 3}= t 'actions'
+  
+  %tbody
+    - for unit in @units
+      %tr{ :class => cycle(:odd, :even) }
+        %td= unit.name
+        %td.action= link_to t('show'), unit
+        %td.action= link_to t('edit'), edit_unit_path(unit)
+        %td.action= link_to t('destroy'), unit, :confirm => t('are_you_sure'), :method => :delete

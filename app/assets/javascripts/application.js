@@ -6,4 +6,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require_tree .
+
+$(function() {
+	//alert("before");
+	$('#recipe_ingredients_box').tokenInput('/units.json', { crossDomain: false });
+	//alert("after");
+});

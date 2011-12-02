@@ -2,6 +2,7 @@ class Recipe < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :inverse_of=>:created_recipes
   has_many :supplies, :dependent => :destroy
   has_many :ingredients, :through => :supplies
+  #has_many :units, :through => :supplies
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :clippers, :class_name => "User"
 
@@ -57,6 +58,11 @@ class Recipe < ActiveRecord::Base
     self.cook_time+self.prep_time
   end
   
+  def ingredients_box
+    #TODO: show existing ingredients.    
+  end 
 
-  
+  def ingredients_box=(text)
+    #TODO: parse ingredients.
+  end  
 end

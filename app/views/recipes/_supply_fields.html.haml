@@ -1,14 +1,17 @@
 .fields
+  /.field
+  /  = f.label :amount_tokens
+  /  %br
+  /  = f.text_field :amount_tokens
+  /.field
+  /  = f.label :unit
+  /  %br
+  /  = f.text_field :unit
   .field
-    = f.label :amount
-    %br
-    = f.text_field :amount
-  .field
-    = f.label :unit
-    %br
-    = f.text_field :unit
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  = f.link_to_remove "Remove This Ingredient"
+    = f.label :ingredients, :for => :ingredients_box
+    = f.text_field :ingredients_box
+  /.field
+  /  = f.label :name
+  /  %br
+  /  = f.text_field :name
+  /= f.link_to_remove "Remove This Ingredient"
