@@ -10,9 +10,25 @@
 	.listing {
 		margin:0 1em 1em;
 		border-bottom:solid 1px #ccc;
+		@include clearfix;
 		
 		h3 {
 			margin-bottom:.3em;
+		}
+		
+		.cook_times {
+			float:right;
+			margin: 0 .5em .5em;
+			padding: .5em;
+			border:2px solid #88b;
+			background-color: #88b+#444;
+			width:5.25em;
+			@include border-radius(5px);
+			
+			dd {
+				margin-left:0;
+			}
+			
 		}
 	}
 }

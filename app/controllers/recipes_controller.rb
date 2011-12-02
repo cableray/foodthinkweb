@@ -2,7 +2,7 @@ class RecipesController < InheritedResources::Base
   respond_to :html, :xml, :json
   optional_belongs_to :user
 
-  has_scope :search
+  has_scope :search, :tag
   
   # GET /recipes
   # GET /recipes.json
@@ -95,7 +95,7 @@ class RecipesController < InheritedResources::Base
     respond_with do |format|
       begin
         current_user.clippings << @recipe
-        format.html {redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe was successfully added.'}
+        format.html {redirect_to :back, notice: 'Recipe was successfully added.'}
         format.json do
            render json: {
             links: [
@@ -108,7 +108,7 @@ class RecipesController < InheritedResources::Base
         end
       rescue ActiveRecord::RecordInvalid => invalid
         if invalid.record.errors[:recipe_id] then
-          format.html { redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe has already been clipped' }
+          format.html { redirect_to :back, notice: 'Recipe has already been clipped' }
           format.json do
              render json: {
               links: [
@@ -123,6 +123,17 @@ class RecipesController < InheritedResources::Base
           raise invalid
         end
       end
+    end
+  end
+  
+  # DELETE /recipes/1/clip[.json]
+  # GET /recipes/1/unclip[.json]
+  def unclip
+    @recipe=Recipe.find(params[:id])
+    @recipe.remove_bookmark_for_user current_user
+    respond_with do |format|
+      format.html {redirect_to :back, notice: "Recipe removed from your clipped recipes"}
+      format.json {head :ok}
     end
   end
   

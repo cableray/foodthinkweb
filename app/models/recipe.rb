@@ -41,6 +41,11 @@ class Recipe < ActiveRecord::Base
     Recipe.where(:id=>s) #this returns an ActiveRecord::Relation instead of a vanilla array, which is expected by has_scope.
   end
   
+  scope :tag
+  def self.tag(name)
+    Recipe.joins(:tags).where("upper(tags.name)=?",name.humanize.upcase)
+  end
+  
   attr_writer :tag_names
   after_save :assign_tags
 
@@ -48,6 +53,15 @@ class Recipe < ActiveRecord::Base
     @tag_names || tags.map(&:name).join(', ')
   end
 
+  def total_time
+    self.cook_time+self.prep_time
+  end
+  
+  def remove_bookmark_for_user (user)
+    clippers.delete user
+  end
+  
+  
   private
 
   def assign_tags
@@ -58,10 +72,4 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def total_time
-    self.cook_time+self.prep_time
-  end
-  
-
-  
 end

@@ -1,6 +1,10 @@
 class RecipeDecorator < ApplicationDecorator
   decorates :recipe
   
+  include Rails.application.routes.url_helpers
+  def default_url_options; {:host => 'www.example.com'}; end;
+  
+  
   
   def seconds_to_dhms(seconds)
     minutes, seconds = seconds.divmod 60
@@ -36,6 +40,13 @@ class RecipeDecorator < ApplicationDecorator
   
   def clipped?
     h.current_user and model.clipped_by?(h.current_user)
+  end
+  
+  def tag_links
+    taglinks = model.tags.map do |tag|
+      h.link_to ERB::Util.h(tag.name), recipes_path(tag:tag.name), :class=>'tag'
+    end
+    taglinks.join ', '
   end
   
   #def description
