@@ -10,7 +10,5 @@
 //= require_tree .
 
 $(function() {
-	//alert("before");
 	$('#recipe_ingredients_box').tokenInput('/units.json', { crossDomain: false });
-	//alert("after");
 });
