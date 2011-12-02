@@ -4,7 +4,8 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, :through => :supplies
   #has_many :units, :through => :supplies
   has_and_belongs_to_many :tags
-  has_and_belongs_to_many :clippers, :class_name => "User"
+  has_many :recipe_bookmarks
+  has_many :clippers, :through=>:recipe_bookmarks, :source=>:user, :class_name => "User"
 
   scope :recent, order('created_at desc')
   scope :by_user, lambda{|user| where(:creator_id=>user.id)}
@@ -12,6 +13,10 @@ class Recipe < ActiveRecord::Base
   accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
   def reject_supply?(attributed)
     attributed['name'].blank? and attributed['ingredient_id'].blank?
+  end
+  
+  def clipped_by? (user)
+    clippers.exists?(id:user.id)
   end
   
   validates :name, :presence=>true 

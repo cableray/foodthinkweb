@@ -92,10 +92,37 @@ class RecipesController < InheritedResources::Base
   # PUT /recipes/1/clip[.json]
   def clip
     @recipe=Recipe.find(params[:id])
-    current_user.clippings << @recipe
     respond_with do |format|
-      format.html {redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe was successfully added.'}
-      format.json { head :ok }
+      begin
+        current_user.clippings << @recipe
+        format.html {redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe was successfully added.'}
+        format.json do
+           render json: {
+            links: [
+              {rel: 'self', href: recipe_url(@recipe)},
+              {rel: 'added_to', href: clippings_user_recipes_url(current_user)}
+              ], 
+            notice:'Recipe was successfully added.', 
+            changed:true}, # TODO dry this up
+           status: :ok
+        end
+      rescue ActiveRecord::RecordInvalid => invalid
+        if invalid.record.errors[:recipe_id] then
+          format.html { redirect_to clippings_user_recipes_path(current_user), notice: 'Recipe has already been clipped' }
+          format.json do
+             render json: {
+              links: [
+                {rel: 'self', href: recipe_url(@recipe)},
+                {rel: 'added_to', href: clippings_user_recipes_url(current_user)}
+                ], 
+              notice:'Recipe has already been clipped.', 
+              changed:false}, # TODO dry this up
+             status: :ok
+          end
+        else
+          raise invalid
+        end
+      end
     end
   end
   
@@ -103,7 +130,10 @@ class RecipesController < InheritedResources::Base
   def clippings
     @recipes = User.find(params[:user_id]).clippings
     respond_with do |format|
-      format.html { @recipes=RecipeDecorator.decorate @recipes }
+      format.html do
+        @recipes=RecipeDecorator.decorate @recipes 
+        render 'index'
+      end
       format.json { render json: RecipeJsonDecorator.decorate(@recipes) }
     end
   end

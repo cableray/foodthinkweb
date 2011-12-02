@@ -1,4 +1,4 @@
-%div{ :class => cycle(:odd, :even)+" listing" }
+%div{ :class => [cycle(:odd, :even),"listing",recipe.clipped?()? 'clipped' : 'unclipped'] }
   %h3= link_to recipe.name, recipe
   .description
     :markdown
@@ -9,4 +9,4 @@
     %dt Prep Time
     %dd= recipe.prep_time_dhms
   .tags= recipe.tag_names
-  .clip= link_to 'add', clip_recipe_path(recipe), :method=>:put
+  .clip= link_to 'add', clip_recipe_path(recipe), :method=>:put unless recipe.clipped?
