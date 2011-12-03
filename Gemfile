@@ -31,6 +31,8 @@ gem 'sorcery' #A bare-bones authentication system.
 
 gem 'bluecloth' # render markdown as html
 
+gem 'rails-backbone' # js and templating
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
