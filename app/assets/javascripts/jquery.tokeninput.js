@@ -268,7 +268,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 case KEY.NUMPAD_ENTER:
                 case KEY.COMMA:
                   if(selected_dropdown_item) {
-                    add_token($(selected_dropdown_item).data("tokeninput"));
+                    add_token($(selected_dropdown_item).data("tokeninput")); //HERE!!!
                     hidden_input.change();
                     return false;
                   }
@@ -447,6 +447,11 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Inner function to a token to the list
     function insert_token(item) {
+        //console.debug(item);
+        var remove_text = new RegExp("[a-z]", "g");
+        var input_text =  input_box.val().toLowerCase();
+
+        item.name = input_text.replace(remove_text, "") + item.name;
         var this_token = settings.tokenFormatter(item);
         this_token = $(this_token)
           .addClass(settings.classes.token)
@@ -486,7 +491,7 @@ $.TokenList = function (input, url_or_data, settings) {
     }
 
     // Add a token to the token list based on user input
-    function add_token (item) {
+    function add_token (item) {  
         var callback = settings.onAdd;
 
         // See if the token already exists and select it if we don't want duplicates
@@ -733,7 +738,16 @@ $.TokenList = function (input, url_or_data, settings) {
     // Do a search and show the "searching" dropdown if the input is longer
     // than settings.minChars
     function do_search() {
-        var query = input_box.val().toLowerCase();
+        var number = new RegExp('[0-9]\s?', "g");
+        var slash = new RegExp('/', "g");
+        var dot = new RegExp('\.', "g");
+        var query = input_box.val().toLowerCase();//.replaceAll("[0-9]\s?[0-9]*/[0-9]*", "");
+        //alert(query);
+        var amount = query.replace(number, "");
+
+        amount = amount.replace(slash, "");
+        //amount = amount.replace(dot, "");
+        query = amount;
 
         if(query && query.length) {
             if(selected_token) {
@@ -750,11 +764,25 @@ $.TokenList = function (input, url_or_data, settings) {
             } else {
                 hide_dropdown();
             }
+
+            //alert(query);
         }
     }
 
     // Do the actual search
     function run_search(query) {
+        var number = new RegExp('[0-9]', "g");
+        var slash = new RegExp('/', "g");
+        var dot = new RegExp('\.', "g");
+        var query = input_box.val().toLowerCase();
+        
+        var amount = query.replace(number, "");
+        amount = amount.replace(slash, "");
+        amount = amount.replace(" ", "");
+        //amount = amount.replace(dot, "");
+        query = amount;
+        //alert(query);
+
         var cache_key = query + computeURL();
         var cached_results = cache.get(cache_key);
         if(cached_results) {
@@ -795,9 +823,10 @@ $.TokenList = function (input, url_or_data, settings) {
                   cache.add(cache_key, settings.jsonContainer ? results[settings.jsonContainer] : results);
 
                   // only populate the dropdown if the results are associated with the active search query
-                  if(input_box.val().toLowerCase() === query) {
-                      populate_dropdown(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
-                  }
+                  //if(input_box.val().toLowerCase() === query) {
+                      populate_dropdown(query, settings.jsonContainer ? results[settings.jsonContainer] : results); //Right here!!!
+                      //input_box.val().toLowerCase();
+                  //}
                 };
 
                 // Make the request
@@ -842,6 +871,7 @@ $.TokenList.Cache = function (options) {
     };
 
     this.add = function (query, results) {
+        //alert("Query: " + query + " Results: " + results);
         if(size > settings.max_size) {
             flush();
         }

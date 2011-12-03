@@ -72,4 +72,12 @@ class Recipe < ActiveRecord::Base
     end
   end
 
+  def ingredients_box=(ids)
+
+  end
+
+  def ingredients_box
+
+  end
+
 end
