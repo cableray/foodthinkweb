@@ -14,6 +14,3 @@
 //= require backbone/ftweb
 //= require_tree .
 
-$(function() {
-	$('#recipe_ingredients_box').tokenInput('/units.json', { crossDomain: false });
-});

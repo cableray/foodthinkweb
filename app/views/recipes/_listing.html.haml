@@ -10,7 +10,7 @@
       #{h recipe.description}
   .tags!= recipe.tag_links
   .clip
-  - if !recipe.clipped?
-    = link_to 'Clip this recipe for later!', clip_recipe_path(recipe), :method=>:put
-  -else
-    = link_to 'Remove from clipped recipes', clip_recipe_path(recipe), :method=>:delete
+    - if !recipe.clipped?
+      = link_to 'Clip this recipe for later!', clip_recipe_path(recipe), :method=>:put
+    -else
+      = link_to 'Remove from clipped recipes', clip_recipe_path(recipe), :method=>:delete
