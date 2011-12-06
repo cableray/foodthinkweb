@@ -1,19 +1,30 @@
+@import "compass/typography/lists/inline-list";
 @mixin workbench{
+
+@include single-box-shadow();
+@include border-bottom-left-radius(5px);
 $section-label-color:#666;
 
 .inner-div{
-	padding-left:1em;}
+	padding-left:1em;
+}
 
 dt.section {
 	font-size:1.5em;
 	color:$section-label-color;
 	#border-top:solid 1px #ddd;
-}
+
+
 dd {
 	margin-left:0;
 	dt.section {
 		font-size:1.25em;
 	}
+}
+}
+
+dd ul {
+	@include inline-list();
 }
 
 dt.user {

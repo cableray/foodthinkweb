@@ -11,6 +11,7 @@
         .inner-div
           %h1#headline= link_to 'FoodThink', root_path
           =render :partial => "flash", :locals => {:flash => flash}
+          =render "search"
           = yield 
       #workbench
         .inner-div

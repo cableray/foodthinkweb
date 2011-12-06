@@ -1,12 +1,5 @@
 %h1 Recipes
 
-.search
-  = form_tag recipes_path(), :method=>:get do
-    = label_tag :search, "Search:"
-    = text_field_tag :search, params["search"]
-    = submit_tag "Search"
-
-
 %p= link_to t('.new_recipe'), new_recipe_path
 #recipes
   = render 'featured_list' if @featured

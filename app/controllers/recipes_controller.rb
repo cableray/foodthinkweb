@@ -3,7 +3,8 @@ class RecipesController < InheritedResources::Base
   optional_belongs_to :user
 
   has_scope :search, :tag
-  
+
+  before_filter :require_login, only: [:create, :new, :edit]
   # GET /recipes
   # GET /recipes.json
   def index
@@ -149,5 +150,9 @@ class RecipesController < InheritedResources::Base
     end
   end
 
+  private
+  def not_authenticated
+    redirect_to login_url, alert: "You must first log in to view this page."
+  end
 
 end

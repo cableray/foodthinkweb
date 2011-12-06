@@ -1,4 +1,4 @@
-= nested_form_for(@recipe) do |f|
+= form_for(@recipe) do |f|
   - if @recipe.errors.any?
     #errorExplanation
       %h2= "#{pluralize(@recipe.errors.count, 'error')} prohibited this user from being saved:"

@@ -1,11 +1,11 @@
 //%h1= "FoodThink"
 //%h3= "WEB"
 
-.search{:class => 'search_box'}
-  = form_tag recipes_path(), :method=>:get do
-    = label_tag :search, "Search:"
-    = text_field_tag :search, params["search"]
-    = submit_tag "Search"
+/ .search{:class => 'search_box'}
+/   = form_tag recipes_path(), :method=>:get do
+/     = label_tag :search, "Search:"
+/     = text_field_tag :search, params["search"]
+/     = submit_tag "Search"
 
 - for recipe in @featured
   =render :partial=>'featured', :locals=>{:recipe=>recipe}
