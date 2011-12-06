@@ -3,6 +3,7 @@
 	background-color:rgba(0,0,0,.2);
 	padding:1em;
 	margin:.5em;
+	@include border-radius(5px);
 }
 
 #recipe-list {
@@ -32,5 +33,8 @@
 		}
 	}
 }
+
+
+
 
 }

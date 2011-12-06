@@ -1,0 +1,27 @@
+@mixin search {
+	
+  margin:0 auto;
+  width: 75%;
+
+  @include clearfix;
+
+  #search {
+    width: 90%;
+    margin: .5em 5%;
+    border: solid 3px blue;
+    @include border-radius(5px);
+  }
+
+  label {
+    display: none;
+    width: 12.5%;
+  }
+
+  .button {
+    display: block;
+    margin: 0 auto;
+    width: 10em;
+    font-size: 1.2em;
+    /*font-weight: bold;*/
+  }
+}

@@ -40,9 +40,11 @@ form.bp {
 
 @import "partials/recipes";
 @import "partials/workbench";
+@import "partials/search";
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body.two-col {
+	background-color:#999;
 	  @include blueprint-typography(true);
   #container {
 		background-color:#999;
@@ -70,7 +72,8 @@ body.two-col {
 	
 	#workbench {
 		background-color:#FFF;
-		@include single-box-shadow();
+		
+		
  		@include workbench;
 	}
   #content {
@@ -89,5 +92,11 @@ body.two-col {
 		#recipes {
 			@include recipes;
 		}
-	} 
+    
+    .search {
+      @include search;
+    }
+	}
+
+
 }

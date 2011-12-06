@@ -10,6 +10,10 @@ class Recipe < ActiveRecord::Base
   scope :by_user, lambda{|user| where(:creator_id=>user.id)}
   
   accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
+
+  #attr_accessible :ingredients_box
+  #virtual_attribute :ingredients_box
+
   def reject_supply?(attributed)
     attributed['name'].blank? and attributed['ingredient_id'].blank?
   end
@@ -61,9 +65,15 @@ class Recipe < ActiveRecord::Base
     clippers.delete user
   end
   
-  
-  private
+  def ingredients_box=(text)
+    @ingredients_box = text
+  end
 
+  def ingredients_box
+
+  end
+
+  #private
   def assign_tags
     if @tag_names
       self.tags = @tag_names.split(/,\s*/).map do |name|
@@ -72,12 +82,8 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def ingredients_box=(ids)
+  #attr_writer :ingredients_box
 
-  end
 
-  def ingredients_box
-
-  end
-
+  
 end

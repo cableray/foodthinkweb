@@ -1,0 +1,7 @@
+.search
+  = form_tag recipes_path(), :method=>:get do
+    = label_tag :search, "Search FoodThink:"
+    %br
+    = text_field_tag :search, params["search"]
+    %br
+    = submit_tag "Search", :class => "button" 

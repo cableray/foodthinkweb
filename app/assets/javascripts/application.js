@@ -8,12 +8,10 @@
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require underscore
-//= require backbone
-//= require backbone_rails_sync
-//= require backbone_datalink
-//= require backbone/ftweb
+
 //= require_tree .
 
 $(function() {
-	$('#recipe_ingredients_box').tokenInput('/units.json', { crossDomain: false });
+	$('#recipe_ingredients_box').tokenInput('/units.json', { crossDomain: false });//.init();
+	//$('#recipe_ingredients_box').tokenInput("init");
 });

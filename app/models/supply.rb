@@ -6,8 +6,8 @@ class Supply < ActiveRecord::Base
 
   attr_reader :amount_tokens
   
-  validates :unit, :inclusion => { :in => %w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes),
-      :message => "%{value} is not a valid unit" }
+  #validates :unit, :inclusion => { :in => %w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes),
+  #    :message => "%{value} is not a valid unit" }
   
   accepts_nested_attributes_for :ingredient
   

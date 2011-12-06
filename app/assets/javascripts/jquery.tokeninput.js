@@ -19,9 +19,10 @@ var DEFAULT_SETTINGS = {
     minChars: 1,
     propertyToSearch: "name",
     jsonContainer: null,
+    tokenMode: 1, //Change the mode when the 
 
 	// Display settings
-    hintText: "Type in a search term",
+    hintText: "Start with typing the amount (1/2 cup...)",
     noResultsText: "No results",
     searchingText: "Searching...",
     deleteText: "&times;",
@@ -96,8 +97,9 @@ var KEY = {
 // Additional public (exposed) methods
 var methods = {
     init: function(url_or_data_or_function, options) {
-        var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
 
+        var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
+        //alert("HI");
         return this.each(function () {
             $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
         });
@@ -134,12 +136,17 @@ $.TokenList = function (input, url_or_data, settings) {
     //
     // Initialization
     //
+    // console.debug(input);
+    // console.debug(url_or_data);
+    // console.debug(settings);
+    var tokenMode = 0;
+    var textToDisregard = "";
 
     // Configure the data source
     if($.type(url_or_data) === "string" || $.type(url_or_data) === "function") {
         // Set the url to query against
         settings.url = url_or_data;
-
+        //console.debug(settings.url);
         // If the URL is a function, evaluate it here to do our initalization work
         var url = computeURL();
 
@@ -521,7 +528,21 @@ $.TokenList = function (input, url_or_data, settings) {
         }
 
         // Clear input box
-        input_box.val("");
+        // alert(tokenMode);
+        // if (tokenMode == 1) {
+            
+        //     input_box.val("");
+        //     input_box.text("");
+        //     settings.url = "/units.jason"
+        //     tokenMode = 0;
+
+        // } else {
+        //     settings.url = "/ingredients.json"
+
+        // }
+        console.debug(item);
+
+        switchUnitsIngredients(item.name);
 
         // Don't show the help dropdown, they've got the idea
         hide_dropdown();
@@ -532,13 +553,33 @@ $.TokenList = function (input, url_or_data, settings) {
         }
     }
 
+    function switchUnitsIngredients (text) {
+        alert(text);
+        if (tokenMode == 1) {
+            input_box.val("");
+            input_box.text("");
+            settings.url = "/units.json";
+            tokenMode = 0;  //Switch Mode
+            alert(textToDisregard + " " + text);
+        } else {
+            //input_box.val("");
+            settings.url = "/ingredients.json";
+            input_box.val(text + " ");
+            input_box.text(text + " ");
+            textToDisregard = text;
+            //alert(textToDisregard);
+            tokenMode = 1; //Switch mode.
+
+        }
+    }
+
     // Select a token in the token list
     function select_token (token) {
         token.addClass(settings.classes.selectedToken);
         selected_token = token.get(0);
 
         // Hide input box
-        input_box.val("");
+        switchUnitsIngredients();
 
         // Hide dropdown if it is visible (eg if we clicked to select token)
         hide_dropdown();
@@ -743,10 +784,17 @@ $.TokenList = function (input, url_or_data, settings) {
         var dot = new RegExp('\.', "g");
         var query = input_box.val().toLowerCase();//.replaceAll("[0-9]\s?[0-9]*/[0-9]*", "");
         //alert(query);
-        var amount = query.replace(number, "");
+        var amount;
 
-        amount = amount.replace(slash, "");
-        //amount = amount.replace(dot, "");
+        if (tokenMode == 1) {
+            amount = query.replace(textToDisregard + " ", "");
+            alert(amount);
+        } else {
+            amount = query.replace(number, "");
+            amount = amount.replace(slash, "");
+            amount = amount.replace(" ", "");
+            //amount = amount.replace(dot, "");
+        }
         query = amount;
 
         if(query && query.length) {
@@ -775,11 +823,18 @@ $.TokenList = function (input, url_or_data, settings) {
         var slash = new RegExp('/', "g");
         var dot = new RegExp('\.', "g");
         var query = input_box.val().toLowerCase();
+        var amount;
+
+        if (tokenMode == 1) {
+            amount = query.replace(textToDisregard + " ", "");
+            //alert(amount);
+        } else {
+            amount = query.replace(number, "");
+            amount = amount.replace(slash, "");
+            amount = amount.replace(" ", "");
+            //amount = amount.replace(dot, "");
+        }
         
-        var amount = query.replace(number, "");
-        amount = amount.replace(slash, "");
-        amount = amount.replace(" ", "");
-        //amount = amount.replace(dot, "");
         query = amount;
         //alert(query);
 
@@ -805,6 +860,8 @@ $.TokenList = function (input, url_or_data, settings) {
                     });
                 } else {
                     ajax_params.url = url;
+                    //alert(url);
+                    console.debug(url);
                 }
 
                 // Prepare the request
