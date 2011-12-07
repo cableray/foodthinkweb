@@ -72,6 +72,22 @@ class Recipe < ActiveRecord::Base
   def ingredients_box
 
   end
+  
+  def cook_time_minutes
+    cook_time/1.minute
+  end
+  
+  def cook_time_minutes=(time)
+    cook_time=time.minutes
+  end
+  
+  def prep_time_minutes
+    cook_time/1.minute
+  end
+  
+  def prep_time_minutes=(time)
+    cook_time=time.minutes
+  end
 
   #private
   def assign_tags

@@ -1,4 +1,4 @@
-%h3= recipe.name
+%h3= link_to recipe.name, recipe_path(recipe)
 .description
   :markdown
-    #{h recipe.description}
+    #{h recipe.description[0..100]}...

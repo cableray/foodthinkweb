@@ -1,33 +1,39 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), recipes_path
-  = link_to t('edit'), edit_recipe_path(@recipe)
+%h1= @recipe.name
+.recipe-detail
+  %p
+    = link_to t('back'), recipes_path
+    = link_to t('edit'), edit_recipe_path(@recipe)
 
-%dl
-  %dt= Recipe.human_attribute_name :name
-  %dd= @recipe.name
-  %dt= Recipe.human_attribute_name :cook_time
-  %dd= @recipe.cook_time_dhms
-  %dt= Recipe.human_attribute_name :prep_time
-  %dd= @recipe.prep_time_dhms
-  %dt Tags
-  %dd= @recipe.tag_names
-  %dt= Recipe.human_attribute_name :description
-  %dd
-    :markdown
-      #{h @recipe.description}
-  %dt= Recipe.human_attribute_name :steps
-  %dd
-    :markdown
-      #{h @recipe.steps}
-%table
-  %thead
-    %tr
-      %th(colspan=2) Amount
-      %th Ingredient
-  %tbody
-    - for supply in @recipe.supplies
-      %tr
-        %td= supply.amount
-        %td= supply.unit
-        %td= supply.name
+  %dl
+    %dt= Recipe.human_attribute_name :cook_time
+    %dd= @recipe.cook_time_dhms
+    %dt= Recipe.human_attribute_name :prep_time
+    %dd= @recipe.prep_time_dhms
+    %dt= Recipe.human_attribute_name :description
+    %dd
+      :markdown
+        #{h @recipe.description}
+    %dt Ingredients
+    %dd
+      = '(no ingredients)' if @recipe.supplies.empty?
+      - if !@recipe.supplies.empty?
+        %table.ingredients
+          %thead
+            %tr
+              %th(colspan=2) Amount
+              %th Ingredient
+          %tbody
+            - for supply in @recipe.supplies
+              %tr
+                %td= supply.amount
+                %td= supply.unit
+                %td= supply.name
+    %dt= Recipe.human_attribute_name :steps
+    %dd
+      :markdown
+        #{h @recipe.steps}
+    %dt Tags
+    %dd= @recipe.tag_names
+    -unless @recipe.creator.nil?
+      %dt Creator
+      %dd= link_to @recipe.creator.username, user_recipes_path(@recipe.creator)

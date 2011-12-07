@@ -1,0 +1,28 @@
+@mixin recipe-form {
+	.field {
+		textarea {
+			width: 100%;
+			height: 5em;
+		}
+		input[type=text]{
+			width: 100%;
+		}
+	}
+	.explained-field{
+		@include clearfix;
+		.field{
+			float:left;
+			width:69%;
+			padding: 0.5em;
+			input, textarea {
+				width:100%;
+			}
+		}
+		.help{
+			float:left;
+			width:29%;
+			margin-left:1.5;
+			background-color:#ddd;
+		}
+	}
+}

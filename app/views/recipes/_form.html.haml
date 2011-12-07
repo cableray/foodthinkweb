@@ -7,24 +7,26 @@
         %li= msg
   
   .field
-    = f.label :name
+    = f.label "Recipe Name:", for: :name
     %br
     = f.text_field :name
   .field
-    = f.label :cook_time
-    %br
-    = f.number_field :cook_time
+    = f.label :cook_time, for: :cook_time_minutes
+    = f.number_field :cook_time_minutes
+    minutes
   .field
-    = f.label :prep_time
-    %br
-    = f.number_field :prep_time
-  .fields
-    = render :partial => "supply_fields", :locals => { :f => f }
+    = f.label :prep_time, for: :prep_time_minutes
+    = f.number_field :prep_time_minutes
+    minutes
     
   .field
     = f.label :description
     %br
     = f.text_area :description
+
+  .fields
+    = render :partial => "supply_fields", :locals => { :f => f }
+
   .field
     = f.label :steps
     %br

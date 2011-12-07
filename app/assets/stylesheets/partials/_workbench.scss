@@ -25,6 +25,26 @@ dd {
 
 dd ul {
 	@include inline-list();
+	li{
+		h1, h2, h3, h4, h5, h6 {
+			margin:0;
+		}
+		h3 {
+			font-size:100%;
+			line-height:18px;
+			font-weight:bold;
+			display:inline;
+			float:left;
+			margin-right:.5em;
+			vertical-align:baseline;
+		}
+		.description {
+			display:inline;
+			p {
+				margin-bottom:.5em;
+			}
+		}
+	}
 }
 
 dt.user {

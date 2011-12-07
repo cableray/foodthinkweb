@@ -8,9 +8,16 @@
   #search {
     width: 90%;
     margin: .5em 5%;
-    border: solid 3px blue;
-    @include border-radius(5px);
+		padding: .4em .8em;
+		font-size:1.3em;
+    border: solid 3px #88b;
+    @include border-radius(1.3em+2*(.4em));
   }
+	
+	#search:focus{
+		outline:none;
+		background:#eef;
+	}
 
   label {
     display: none;
