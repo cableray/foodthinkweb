@@ -41,4 +41,15 @@ class Supply < ActiveRecord::Base
     self.amounts = ids.split(',')
   end
   
+  def self.parse_line_item(line_item)
+
+    tokens = line_item.match(/^\s*(?<amount>[0-9]*\s[0-9]+\/[0-9]+|[0-9]+\/[0-9]+|[0-9]*\.?[0-9]+)\s+(?<unit>[A-Za-z]+)\s+(?<ingredient>[A-Za-z\s]+)$/)
+    supply=Supply.new
+
+    supply.amount = Fractional.to_f(tokens[:amount])
+    supply.unit = Unit.find_or_create_by_name(tokens[:unit])
+    supply.ingredient = Ingredient.find_or_create_by_name(tokens[:ingredient])
+    supply
+  end
+
 end

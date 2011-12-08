@@ -23,7 +23,7 @@ class Recipe < ActiveRecord::Base
   end
   
   validates :name, :presence=>true 
-  validates :cook_time, :prep_time, :numericality => { :only_integer => true }
+  validates :cook_time, :prep_time, :numericality => { :only_integer => false }
   
   searchable do
     text :name, :boost=>10
@@ -65,29 +65,32 @@ class Recipe < ActiveRecord::Base
     clippers.delete user
   end
   
+
   def ingredients_box=(text)
     @ingredients_box = text
   end
 
   def ingredients_box
-
+    @ingredients_box
   end
   
   def cook_time_minutes
-    cook_time/1.minute
+    (cook_time || 0)/1.minute
   end
   
   def cook_time_minutes=(time)
-    cook_time=time.minutes
+    self.cook_time=time.to_f.minutes
   end
   
   def prep_time_minutes
-    cook_time/1.minute
+    (prep_time || 0)/1.minute
   end
   
   def prep_time_minutes=(time)
-    cook_time=time.minutes
+    self.prep_time=time.to_f.minutes  
   end
+
+
 
   #private
   def assign_tags
@@ -96,6 +99,15 @@ class Recipe < ActiveRecord::Base
         Tag.find_or_create_by_name(name)
       end
     end
+  end
+
+  after_save :assign_supplies
+  def assign_supplies
+    supply_a = []
+    @ingredients_box.split('\n').each do |line_item|
+      supply_a << Supply.parse_line_item(line_item)
+    end
+    supplies = supply_a
   end
 
   #attr_writer :ingredients_box

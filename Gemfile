@@ -28,6 +28,7 @@ gem 'haml' #haml (simplified html for improved readability) template engine, ins
 gem 'compass' #css framework
 
 gem 'sorcery' #A bare-bones authentication system.
+gem 'fractional'
 
 gem 'bluecloth' # render markdown as html
 
