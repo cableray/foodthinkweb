@@ -1,0 +1,9 @@
+-if current_user
+  =link_to 'Logout', logout_path, class: :'navbar_link pull-right'
+-else
+  =form_tag sessions_path, method: :post, class: :'navbar-form pull-right' do
+    .input-append
+      = text_field_tag :username, nil, placeholder:"username"
+      = password_field_tag :password, nil, placeholder:"password"
+      = submit_tag "Log in", class: :btn
+      = link_to "Sign up", signup_path, class: :'btn btn-navbar'

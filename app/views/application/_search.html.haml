@@ -1,7 +1,4 @@
 .search
-  = form_tag recipes_path(), :method=>:get do
-    = label_tag :search, "Search FoodThink:"
-    %br
-    = text_field_tag :search, params["search"]
-    %br
-    = submit_tag "Search", :class => "button" 
+  = form_tag recipes_path(), method: :get, class: "form-search" do
+    = text_field_tag :search, params["search"], placeholder: "Search Recipes", class: "search-query"
+    = submit_tag "Search", :class => "btn"

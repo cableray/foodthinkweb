@@ -5,3 +5,6 @@ tmp/
 .sass-cache/
 solr/data/*
 log/*.lck
+public/stylesheets/*
+.powder
+.powrc

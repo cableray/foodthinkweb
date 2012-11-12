@@ -1,19 +1,20 @@
 !!! 5
-%html 
-  %head 
+%html
+  %head
     %title FoodThink
-    = stylesheet_link_tag    "application" 
-    = javascript_include_tag "application" 
-    = csrf_meta_tags 
-  %body.two-col 
-    #container
-      #content
-        .inner-div
-          %h1#headline= link_to 'FoodThink', root_path
-          =render :partial => "flash", :locals => {:flash => flash}
-          =render "search"
-          = yield 
-      #workbench
-        .inner-div
-          = render 'workbench'
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body.bootstrap
+    =render "header"
+    #container.container-fluid
+      .fluid-row
+        #content.span8
+          .inner-div
+            =render :partial => "flash", :locals => {:flash => flash}
+            =render "search"
+            = yield
+        #workbench.span4
+          .inner-div
+            = render 'workbench'
 
