@@ -16,12 +16,19 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-def in_memory_database?
-    Rails.env == "test" and
-      ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLiteAdapter ||
-      ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLite3Adapter and
-      Rails.configuration.database_configuration['test']['database'] == ':memory:'
-end
+  def in_memory_database?
+      Rails.env == "test" and
+        ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLiteAdapter ||
+        ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLite3Adapter and
+        Rails.configuration.database_configuration['test']['database'] == ':memory:'
+  end
+  
+  if in_memory_database?
+    warn "creating sqlite in memory database"
+    $stdout=$stderr
+    load "#{Rails.root}/db/schema.rb"
+    $stdout=STDOUT
+  end
 
   RSpec.configure do |config|
     # == Mock Framework
@@ -52,12 +59,6 @@ end
 Spork.each_run do
   # This code will be run each time you run your specs.
 
-  if in_memory_database?
-    warn "creating sqlite in memory database"
-    $stdout=$stderr
-    load "#{Rails.root}/db/schema.rb"
-    $stdout=STDOUT
-  end
   Ftweb::Application.reload_routes!
   FactoryGirl.reload
 
