@@ -8,7 +8,7 @@ class Recipe < ActiveRecord::Base
 
   scope :recent, order('created_at desc')
   scope :by_user, lambda{|user| where(:creator_id=>user.id)}
-  
+
   accepts_nested_attributes_for :supplies, :allow_destroy => true, :reject_if=>:reject_supply?
 
   #attr_accessible :ingredients_box
@@ -17,14 +17,14 @@ class Recipe < ActiveRecord::Base
   def reject_supply?(attributed)
     attributed['name'].blank? and attributed['ingredient_id'].blank?
   end
-  
+
   def clipped_by? (user)
     clippers.exists?(id:user.id)
   end
-  
-  validates :name, :presence=>true 
+
+  validates :name, :presence=>true
   validates :cook_time, :prep_time, :numericality => { :only_integer => false }
-  
+
   searchable do
     text :name, :boost=>10
     text :description, :boost=>2
@@ -36,7 +36,7 @@ class Recipe < ActiveRecord::Base
       tags.map(&:name)
     end
   end
-  
+
   scope :search
   def self.search(text)
     s=Recipe.solr_search_ids do
@@ -44,12 +44,12 @@ class Recipe < ActiveRecord::Base
     end
     Recipe.where(:id=>s) #this returns an ActiveRecord::Relation instead of a vanilla array, which is expected by has_scope.
   end
-  
+
   scope :tag
   def self.tag(name)
     Recipe.joins(:tags).where("upper(tags.name)=?",name.humanize.upcase)
   end
-  
+
   attr_writer :tag_names
   after_save :assign_tags
 
@@ -60,34 +60,34 @@ class Recipe < ActiveRecord::Base
   def total_time
     self.cook_time+self.prep_time
   end
-  
+
   def remove_bookmark_for_user (user)
     clippers.delete user
   end
-  
+
 
   def ingredients_box=(text)
     @ingredients_box = text
   end
 
   def ingredients_box
-    @ingredients_box
+    @ingredients_box || ""
   end
-  
+
   def cook_time_minutes
     (cook_time || 0)/1.minute
   end
-  
+
   def cook_time_minutes=(time)
     self.cook_time=time.to_f.minutes
   end
-  
+
   def prep_time_minutes
     (prep_time || 0)/1.minute
   end
-  
+
   def prep_time_minutes=(time)
-    self.prep_time=time.to_f.minutes  
+    self.prep_time=time.to_f.minutes
   end
 
 
@@ -104,7 +104,7 @@ class Recipe < ActiveRecord::Base
   after_save :assign_supplies
   def assign_supplies
     supply_a = []
-    @ingredients_box.split('\n').each do |line_item|
+    ingredients_box.split('\n').each do |line_item|
       supply_a << Supply.parse_line_item(line_item)
     end
     supplies = supply_a
@@ -113,5 +113,5 @@ class Recipe < ActiveRecord::Base
   #attr_writer :ingredients_box
 
 
-  
+
 end

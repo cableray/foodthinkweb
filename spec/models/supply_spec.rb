@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Supply do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "factory" do
+    subject {FactoryGirl.create :supply}
+    it{should be_valid}
+  end
+
+  
+
 end

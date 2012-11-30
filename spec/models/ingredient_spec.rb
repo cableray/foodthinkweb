@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Ingredient do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "factory" do
+    subject {FactoryGirl.create :ingredient}
+    it{should be_valid}
+  end
+
+  describe "associations" do
+    it {should have_many :supplies}
+    it {should have_many :recipes}
+  end
 end
