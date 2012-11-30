@@ -3,9 +3,9 @@
 FactoryGirl.define do
   factory :supply do
     amount {Random.new.rand(1..4)}
-    unit {%w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes).sample}
+    # unit {%w(Tablespoons Teaspoons Cups Pints Ounces Fluid\ Ounces Gallons Liters Pinches Dashes).sample} deprecated format
   end
-  
+
   factory :supply_with_ingredient, :parent=>:supply do
     association :ingredient
   end
