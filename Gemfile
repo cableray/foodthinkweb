@@ -17,7 +17,9 @@ gem "nested_form", :git=>"https://github.com/ryanb/nested_form.git" #features fo
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'twitter-bootstrap-rails'
+  gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails'
+  gem 'less-rails'
+  gem 'therubyracer'
   gem 'sass-rails',   '>= 3.1.4' #compile sass (css with variables and functions, etc)
   gem 'coffee-rails', '>= 3.1.1' #compile coffescript simplified javascript
   gem 'uglifier', '>= 1.0.3' #compress javascript and css
@@ -56,9 +58,11 @@ group :test do
   gem "cucumber-rails"
   gem "guard-cucumber"
   gem 'pickle' # some steps for cucumber
-  gem 'turn', '< 0.8.3', :require => false # Pretty printed test output
+  gem 'turn', :require => false # Pretty printed test output
   gem 'spork' #forking and test servers
   gem 'guard-spork'
+  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'shoulda'
 end
 
 # growl notification gem for mac
